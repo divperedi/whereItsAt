@@ -1,7 +1,33 @@
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyles = createGlobalStyle`
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+    @font-face {
+        font-family: 'Fira Sans';
+        src: url('/fonts/FiraSans-Regular.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: 'Fira Sans';
+        src: url('/fonts/FiraSans-ThinItalic.ttf') format('truetype');
+        font-weight: 200;
+        font-style: italic;
+    }
+
+    @font-face {
+        font-family: 'Fira Sans';
+        src: url('/fonts/FiraSans-Italic.ttf') format('truetype');
+        font-weight: normal;
+        font-style: italic;
+    }
+
+    @font-face {
+        font-family: 'Sansita One';
+        src: url('/fonts/SansitaOne.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+    }
 
     * {
         box-sizing: border-box;
@@ -10,19 +36,22 @@ const GlobalStyles = createGlobalStyle`
     }
 
     body {
-        background: ${({theme}) => theme.colors.bg};
-        font-family: 'Poppins', sans-serif;
+        background: ${({ theme }) => theme.colors.bg};
         font-size: 1.15em;
     }
 
     h1 {
         color: #F56B9A;
         font-size: 32px;
+        font-family: 'Sansita One', sans-serif;
     }
 
     h2 {
         color: #FFFFFF;
         font-size: 22px;
+        font-family: 'Fira Sans';
+        font-style: italic;
+        font-weight: 200;
     }
 `
 
