@@ -1,25 +1,23 @@
 import Header from '../components/Header';
 import { SearchInput } from '../styled/Header.styled';
-import React, { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import EventsList from '../components/EventsList';
-import axios from 'axios';
+import useEventStore from '../stores/eventStore';
+import { StyledButton } from '../styled/Button.styled';
+import { useNavigate } from 'react-router-dom';
 
 function EventsPage() {
-    const [events, setEvents] = useState([]);
+    const fetchEvents = useEventStore(state => state.fetchEvents);
+    const events = useEventStore(state => state.events);
+
+    const navigate = useNavigate();
+
+    const selectedEvents = useEventStore(state => state.selectedEvents);
+    const ticketQuantities = useEventStore(state => state.ticketQuantities);
 
     useEffect(() => {
-        const fetchEvents = async () => {
-            try {
-                const response = await axios.get('https://santosnr6.github.io/Data/events.json');
-                setEvents(response.data.events);
-                console.log(response.data.events);
-            } catch (error) {
-                console.error('Error fetching events:', error);
-            }
-        };
-
-        fetchEvents(); 
-    }, []);
+        fetchEvents();
+    }, [fetchEvents]);
 
     return (
         <div>
@@ -27,6 +25,18 @@ function EventsPage() {
                 <SearchInput />
             </Header>
             <EventsList events={events} />
+            <div 
+                style={{ 
+                    display: 'flex', 
+                    justifyContent: 'center', 
+                    alignItems: 'center' 
+                }}>
+                <StyledButton
+                    variant="contained"
+                    onClick={() => navigate('/order', { state: { selectedEvents, ticketQuantities } })}>
+                    Till varukorgen
+                </StyledButton>
+            </div>
         </div>
     )
 }

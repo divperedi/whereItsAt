@@ -33,11 +33,22 @@ const GlobalStyles = createGlobalStyle`
         box-sizing: border-box;
         margin: 0;
         padding: 0;
-    }
+    } 
 
     body {
         background: ${({ theme }) => theme.colors.bg};
         font-size: 1.15em;
+    }
+
+    body.tickets-page::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: ${({ theme }) => theme.colors.gradient};
+        z-index: -1;
     }
 
     h1 {

@@ -4,7 +4,6 @@ export const HeaderContainer = styled.header`
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100%;
     margin: 0 auto;
     padding: 10px;
 `;
@@ -12,7 +11,9 @@ export const HeaderContainer = styled.header`
 export const Title = styled.h1`
     color: #F56B9A;
     font-size: 32px;
-    padding: 10px;
+    padding: 5px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 `;
 
 export const SearchInput = styled.input`
@@ -23,11 +24,11 @@ export const SearchInput = styled.input`
     outline: none; 
     box-shadow: none;
     border: 1px solid transparent; 
+
     &:focus {
         border-color: transparent;
 `;
 
 export const SubTitle = styled.h2`
     font-size: 19px;
-    
 `

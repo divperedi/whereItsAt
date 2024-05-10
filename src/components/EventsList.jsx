@@ -1,52 +1,80 @@
-import { Paper, Typography, Grid } from '@mui/material';
+import { Grid } from '@mui/material';
+import { Link } from 'react-router-dom';
+import {
+    EventBox,
+    DateBox,
+    DateText,
+    EventName,
+    EventWhere,
+    EventWhen,
+    EventPrice,
+    HrLine
+} from '../styled/EventsList.styled';
+import { PageContainer } from '../styled/PageContainer.styled';
 
 const EventsList = ({ events }) => {
-    if (events.length === 0) {
-        return <div>No events available</div>;
-    }
+
+    const eventsWithIds = events.map(event => {
+        const name = event.name.replace(/ /g, '-');
+        return {
+            ...event,
+            id: name
+        };
+    });
 
     return (
-        <div>
-            {events.map((event, index) => (
-                <Paper key={index} elevation={3} style={{ marginBottom: '20px', padding: '20px', backgroundColor: '#231F42' }}>
-                    <Grid container spacing={2}>
-                        <Grid item xs={3}>
-                            <div style={{
-                                display: 'inline-block',
-                                width: '66px',
-                                height: '66px',
-                                border: '1px solid white',
-                                borderRadius: '5px',
-                                textAlign: 'center',
-                                lineHeight: '40px',
-                                backgroundColor: 'transparent',
+        <PageContainer>
+            {eventsWithIds.map((event) => (
+                <Link 
+                    key={event.id} 
+                    to={`/event/${event.id}`}
+                    style={{ textDecoration: 'none' }}>
+                    <EventBox>
+                        <Grid container spacing={2} style={{
+                                display: 'flex',
+                                justifyContent: 'center'
                             }}>
-                                <Typography variant="subtitle1">{event.when.date.substring(0, 6)}</Typography>
-                            </div>
-                        </Grid>
+                            <Grid item xs={3}>
+                                <DateBox>
+                                    <DateText>
+                                        {event.when.date.substring(0, 2)}
+                                    </DateText>
+                                    <DateText>
+                                        {event.when.date.substring(2, 6)}
+                                    </DateText>
+                                </DateBox>
+                            </Grid>
 
-                        <Grid item container xs={6} spacing={1}>
-                            <Grid item xs={12}>
-                                <Typography variant="h6">{event.name}</Typography>
-                            </Grid>
-                            <Grid item xs={12}>
-                                <Typography variant="body1">{event.where}</Typography>
-                            </Grid>
-                            <Grid item xs={6}>
-                                <Typography variant="body2">
-                                    {event.when.from} - {event.when.to}
-                                </Typography>
-                            </Grid>
-                            <Grid item xs={6}>
-                                <Typography variant="body2" style={{ textAlign: 'right' }}>
-                                    {event.price} sek
-                                </Typography>
+                            <Grid item container xs={7} spacing={1}>
+                                <Grid item xs={12}>
+                                    <EventName>
+                                        {event.name}
+                                    </EventName>
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <EventWhere>
+                                        {event.where}
+                                    </EventWhere>
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <EventWhen>
+                                        {event.when.from} - {event.when.to}
+                                    </EventWhen>
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <EventPrice>
+                                        {event.price} sek
+                                    </EventPrice>
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <HrLine />
+                                </Grid>
                             </Grid>
                         </Grid>
-                    </Grid>
-                </Paper>
+                    </EventBox>
+                </Link>
             ))}
-        </div>
+        </PageContainer>
     );
 };
 
